@@ -12,6 +12,8 @@ namespace SymStoreAdapter
                 throw new ArgumentException("Commandline have too small amount of arguments");
             switch (cmdArgs[0])
             {
+                case CmdMode.RecursiveAddFromDirectoryWithFilter:
+                    return new RecursiveAddFromDirectoryWithFilterHandler(cmdArgs);
                 case CmdMode.CleanOldTransactions:
                     return new CleanOldTransactionsHandler(cmdArgs);
                 default:

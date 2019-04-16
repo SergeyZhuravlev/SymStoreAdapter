@@ -14,7 +14,7 @@ namespace SymStoreAdapter
 
         public bool IsKey(string name)
         {
-            return CmdArgs.Any(_ => _.StartsWith(name));
+            return CmdArgs.Any(_ => _ == name);
         }
 
         public string Value(string name)
@@ -23,7 +23,7 @@ namespace SymStoreAdapter
                 return null;
             var value = GetSince(name)
                 .FirstOrDefault();
-            if (string.IsNullOrEmpty(value) || new [] {'/', '\\', '-'}.Contains(value[0]))
+            if (string.IsNullOrEmpty(value) || new [] {'/', '-'}.Contains(value[0]))
                 return null;
             return value;
         }
@@ -31,10 +31,23 @@ namespace SymStoreAdapter
         public IEnumerable<string> GetSince(string name)
         {
             return CmdArgs
-                .SkipWhile(_ => !_.StartsWith(name))
+                .SkipWhile(_ => _ != name)
                 .Skip(1)
                 .ToArray();
         }
+
         public IReadOnlyCollection<string> CmdArgs { get; }
+
+        public bool IsArgumentBefore(string checkedArgument, string beforeArgument)
+        {
+            return CmdArgs
+                .Reverse()
+                .SkipWhile(_ => _ != beforeArgument)
+                .Any(_ => _ == checkedArgument)
+                && 
+                CmdArgs
+                .SkipWhile(_ => _ != beforeArgument)
+                .All(_ => _ != checkedArgument);
+        }
     }
 }

@@ -32,9 +32,15 @@ namespace SymStoreAdapter
             return CmdParser.Value(CmdArgumentOptions.SymStorePath) ?? @"symstore.exe";
         }
 
+        protected string SymStoreAllArgs()
+        {
+            var symStoreArgs = CmdParser.GetSince(CmdArgumentOptions.SymStoreArgs)
+                               ?? throw new ArgumentException($"Commandline has no {CmdArgumentOptions.SymStoreArgs}");
+            return @"""" + string.Join(@""" """, symStoreArgs) + @"""";
+        }
+
         protected string SymStoreCommandArgs()
         {
-            
             return $"{SymStoreMode()} {SymStoreArgs()}";
         }
 

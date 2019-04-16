@@ -14,9 +14,7 @@ namespace SymStoreAdapter
 
         protected override string SymStoreArgs()
         {
-            var symStoreArgs = CmdParser.GetSince(CmdArgumentOptions.SymStoreArgs)
-                               ?? throw new ArgumentException($"Commandline has no {CmdArgumentOptions.SymStoreArgs}");
-            return string.Join(" ", symStoreArgs.Select(_ => "\"" + _ + "\"").ToArray());
+            return SymStoreAllArgs();
         }
 
         protected override string SymStoreMode()

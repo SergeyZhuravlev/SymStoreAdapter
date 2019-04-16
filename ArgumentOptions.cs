@@ -8,10 +8,14 @@ namespace SymStoreAdapter
     {
         public const string PdbRepositoryPath = @"/s";
 
+        public const string PdbSourcePath = @"/f";
+
         public const string SymStorePath = @"/SymStorePath";
         public const string SymStoreArgs = @"/SymStoreArgs";
 
         //public const string Help = @"/?";
-        public const string CleanOldTransactionsAfter = @"/After";
+        public const string After = @"/After";
+
+        public const string FileFilter = @"/FileFilter";
     }
 }

@@ -7,5 +7,6 @@ namespace SymStoreAdapter
     static class CmdMode
     {
         public const string CleanOldTransactions = "CleanOldTransactions";
+        public const string RecursiveAddFromDirectoryWithFilter = "RecursiveAddFromDirectoryWithFilter";
     }
 }

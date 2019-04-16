@@ -53,7 +53,7 @@ namespace SymStoreAdapter
 
         public override bool AutoHandled()
         {
-            if (CmdParser.Value(CmdArgumentOptions.CleanOldTransactionsAfter) is string dieAfterAgeString
+            if (CmdParser.Value(CmdArgumentOptions.After) is string dieAfterAgeString
                 && TimeSpan.TryParse(dieAfterAgeString, out _dieAfterAge)
                 && CmdParser.Value(CmdArgumentOptions.PdbRepositoryPath) is string pdbRepositoryPath)
             {
@@ -61,7 +61,7 @@ namespace SymStoreAdapter
                 return false;
             }
 
-            Console.Error.WriteLine($"This mode {GetType()} required {CmdArgumentOptions.CleanOldTransactionsAfter} and {CmdArgumentOptions.SymStorePath} and {CmdArgumentOptions.PdbRepositoryPath} commandline arguments.");
+            Console.Error.WriteLine($"This mode {GetType()} required {CmdArgumentOptions.After} (in format dd.HH:mm:ss) and {CmdArgumentOptions.SymStorePath} and {CmdArgumentOptions.PdbRepositoryPath} commandline arguments.");
             return true;
         }
 
