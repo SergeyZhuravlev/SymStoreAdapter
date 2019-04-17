@@ -18,19 +18,25 @@ namespace SymStoreAdapter
                 return 0;
             var transactionsFilePath = Path.Combine(adminDirectory, "server.txt");
             bool anyTransactionValid = false;
+            long linesAmount = 0;
             DateTime dropTransactionsOlderThen = DateTime.Now.Subtract(_dieAfterAge);
             using(var mirror = new TempFile(transactionsFilePath))
             foreach (var transactionLine in File.ReadLines(mirror.FileName))
             {
+                ++linesAmount;
                 var transaction = new SymStoreTransactionInfo(transactionLine);
                 anyTransactionValid = anyTransactionValid || transaction.IsValid;
                 if(!transaction.IsValid)
                     continue;
-                if (transaction.Operation == "add" && transaction.Object == "file" &&
-                    transaction.Date <= dropTransactionsOlderThen)
-                    DropSymStoreTransaction(transaction.TransactionId);
+                if (transaction.Operation == "add" && transaction.Object == "file")
+                {
+                    if (transaction.Date <= dropTransactionsOlderThen)
+                        DropSymStoreTransaction(transaction.TransactionId);
+                    else
+                        break;
+                }
             }
-            if(!anyTransactionValid)
+            if(linesAmount > 1 && !anyTransactionValid)
                 throw new Exception("Repository hasn't valid transactions");
             return 0;
         }

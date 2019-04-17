@@ -15,7 +15,7 @@ namespace SymStoreAdapter
 
         //public const string Help = @"/?";
         public const string After = @"/After";
-
+        public const string MaxSizeInGb = @"/MaxSizeInGb";
         public const string FileFilter = @"/FileFilter";
     }
 }
